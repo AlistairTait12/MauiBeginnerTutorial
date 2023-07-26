@@ -6,9 +6,12 @@ namespace MyTasksApp.ViewModel;
 
 public partial class MainViewModel : ObservableObject
 {
-    public MainViewModel()
+    IConnectivity _connectivity;
+
+    public MainViewModel(IConnectivity connectivity)
     {
         Items = new ObservableCollection<string>();
+        _connectivity = connectivity;
     }
 
     [ObservableProperty]
@@ -18,10 +21,16 @@ public partial class MainViewModel : ObservableObject
     string _text;
 
     [RelayCommand]
-    void Add()
+    async Task Add()
     {
         if(string.IsNullOrWhiteSpace(Text))
         {
+            return;
+        }
+
+        if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+        {
+            await Shell.Current.DisplayAlert("Oh noo!", "No Internets", "Thanks");
             return;
         }
 

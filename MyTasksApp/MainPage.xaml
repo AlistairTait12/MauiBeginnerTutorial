@@ -32,13 +32,15 @@
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem Text="Delete"
-                                           BackgroundColor="Red" />
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
+                                           CommandParameter="{Binding .}"/>
                             </SwipeItems>
                         </SwipeView.RightItems>
                         <Grid Padding="0,5">
                             <Frame>
                                 <Label Text="{Binding .}"
-                                   FontSize="24"/>
+                                   FontSize="16"/>
                             </Frame>
                         </Grid>
                     </SwipeView>
